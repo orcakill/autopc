@@ -7,7 +7,7 @@ import imageio
 import numpy as np
 
 
-class OpenCvClass:
+class BasicOpenCv:
 
     @staticmethod
     def draw_rectangle(screen, x1: int, y1: int, x2: int, y2: int, img_path: str):
@@ -59,5 +59,6 @@ class OpenCvClass:
             # 可能需要更复杂的判断逻辑或者无法确定
             return False
 
+
 if __name__ == '__main__':
-    OpenCvClass.draw_point([1],1,1,"1")
+    BasicOpenCv.draw_point([1], 1, 1, "1")

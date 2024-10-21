@@ -3,8 +3,6 @@
 # @File: airtest.py
 # @Description: airtest相关的api接口
 import logging
-import random
-import subprocess
 
 from airtest import aircv
 from airtest.aircv import cv2_2_pil
@@ -14,21 +12,21 @@ from airtest.core.api import *
 from airtest.core.helper import G
 from airtest.core.settings import Settings
 
-# 控制airtest的日志输出0
+#  控制airtest的日志输出
 log_airtest = logging.getLogger("airtest")
 log_airtest.setLevel(logging.CRITICAL)
-# 图片点击识别等待时间(秒）·
+# ·图片点击识别等待时间(秒）·
 WAIT_TIME = 0
 # 图像识别阈值
 THRESHOLD = 0.7
-# 按住时间
+#  长按时间
 DURATION = 0.1
 
 
-class AirtestClass:
-    def __init__(self, image_prefix_path):
-        # 图片路径地址前缀
-        self.image_prefix_path = image_prefix_path
+class BasicAirtest:
+    """
+    airtest的基础api
+    """
 
     @staticmethod
     def auto_setup(connect_name: str, device_type: str = 'Android', ip: str = '127.0.0.1:5037', hwnd: str = '',
@@ -54,51 +52,6 @@ class AirtestClass:
         auto_setup(__file__, logdir=False, devices=[devices])
 
     @staticmethod
-    def get_cap_method(serialno):
-        """
-        获取截图方法
-        :param serialno: 安卓设备序列号
-        :return: str
-        """
-        dev = Android(serialno=serialno)
-        screen_proxy = ScreenProxy.auto_setup(dev.adb, rotation_watcher=dev.rotation_watcher)
-        all_methods = screen_proxy.SCREEN_METHODS
-        methods_class = screen_proxy.screen_method
-        for index, (key, value) in enumerate(all_methods.items(), start=1):
-            if isinstance(methods_class, value):
-                return key
-        return None
-
-    @staticmethod
-    def check_fast_method(serialno):
-        """
-        检查最快的、可用的截图方法
-        :param serialno: 安卓设备序列号
-        :return: str
-        """
-        dev = Android(serialno=serialno)
-        screen_proxy = ScreenProxy.auto_setup(dev.adb, rotation_watcher=dev.rotation_watcher)
-        all_methods = screen_proxy.SCREEN_METHODS
-        # 从self.SCREEN_METHODS中，逆序取出可用的方法
-        best_method = None
-        best_time = None
-        for name, screen_class in reversed(all_methods.items()):
-            screen = screen_class(dev.adb, rotation_watcher=dev.rotation_watcher)
-            now1 = time.time()
-            result = screen_proxy.check_frame(screen)
-            now2 = time.time()
-            best_time1 = now2 - now1
-            if result:
-                if best_time1:
-                    if best_time is None:
-                        best_time = best_time1
-                        best_method = name
-                    elif best_time1 < best_time:
-                        best_time = best_time1
-                        best_method = name
-        return best_method
-
-    @staticmethod
     def snapshot(img_path: str = ''):
         """
         设备截图函数，打印或不打印图片到指定路径
@@ -110,7 +63,6 @@ class AirtestClass:
         else:
             screen = G.DEVICE.snapshot(quality=99)
         return screen
-
 
     @staticmethod
     def exists(template: Template, cvstrategy: [], timeout: float):
@@ -183,9 +135,9 @@ class AirtestClass:
         :param package: app的包名
         :return: 无
         """
-        AirtestClass.adb_stop_app(package)
+        BasicAirtest.adb_stop_app(package)
         time.sleep(2)
-        AirtestClass.adb_start_app(package)
+        BasicAirtest.adb_start_app(package)
         time.sleep(2)
 
     @staticmethod
@@ -255,20 +207,6 @@ class AirtestClass:
         return result
 
     @staticmethod
-    def loop_find(template: Template, cvstrategy: [], timeout: float):
-        """
-        在设备屏幕中搜索图像模板，直到超时
-        :param template: template对象
-        :param timeout: 超时时间
-        :param cvstrategy:  图像识别算法
-        :return: [{'result': (x, y),'rectangle': ( (left_top, left_bottom, right_bottom, right_top) ),'confidence': 0.9},...]
-        """
-        Settings.CVSTRATEGY = cvstrategy
-        Settings.FIND_TIMEOUT = timeout
-        result = loop_find(template)
-        return result
-
-    @staticmethod
     def cv_match(template: Template, screen, cvstrategy: []):
         """
         图片中图片查找
@@ -304,45 +242,47 @@ class AirtestClass:
         text1 = "input text '" + word + "'"
         shell(text1)
 
-    def get_template_list(self, folder_path: str, rgb: bool = False, threshold: float = THRESHOLD):
+    @staticmethod
+    def get_cap_method(serialno):
         """
-        根据文件夹名获取图片集合，存储多个template的列表
-        :param folder_path: 图片文件夹路径
-        :param threshold: 图像识别阈值
-        :param rgb: 是否彩色识别
-        :return: [template1,template2……]
+        获取截图方法
+        :param serialno: 安卓设备序列号
+        :return: str
         """
-        template_list = []
-        folder_all_path = folder_path
-        if self.image_prefix_path is not None:
-            folder_all_path = os.path.join(self.image_prefix_path, folder_path)
-        folder_list = os.listdir(folder_all_path)
-        random.shuffle(folder_list)
-        for file_name in folder_list:
-            file_path = os.path.abspath(os.path.join(folder_all_path, file_name))
-            # 判断文件是否存在
-            if os.path.isfile(file_path):
-                # 判断文件是否是图片类型
-                file_ext = file_path.split('.')[-1].lower()
-                if file_ext in ['jpg', 'jpeg', 'png', 'gif', 'bmp']:
-                    # 图片类赋值
-                    template = Template(filename=file_path, rgb=rgb, threshold=threshold)
-                    template_list.append(template)
-        return template_list
+        dev = Android(serialno=serialno)
+        screen_proxy = ScreenProxy.auto_setup(dev.adb, rotation_watcher=dev.rotation_watcher)
+        all_methods = screen_proxy.SCREEN_METHODS
+        methods_class = screen_proxy.screen_method
+        for index, (key, value) in enumerate(all_methods.items(), start=1):
+            if isinstance(methods_class, value):
+                return key
+        return None
 
     @staticmethod
-    def get_adb_resolution(device_address):
+    def check_fast_method(serialno):
         """
-        根据设备信息获取Android设备分辨率
-        :param device_address:
-        :return:
+        检查最快的、可用的截图方法
+        :param serialno: 安卓设备序列号
+        :return: str
         """
-        command = 'adb -s ' + device_address + ' shell wm size'
-        process = subprocess.Popen(command.split(), stdout=subprocess.PIPE)
-        output, error = process.communicate()
-        resolution_tuple = output.decode().strip().split(' ')[-1]
-        resolution_tuple = tuple(map(int, resolution_tuple.split('x')))
-        if resolution_tuple:
-            return resolution_tuple
-
-
+        dev = Android(serialno=serialno)
+        screen_proxy = ScreenProxy.auto_setup(dev.adb, rotation_watcher=dev.rotation_watcher)
+        all_methods = screen_proxy.SCREEN_METHODS
+        # 从self.SCREEN_METHODS中，逆序取出可用的方法
+        best_method = None
+        best_time = None
+        for name, screen_class in reversed(all_methods.items()):
+            screen = screen_class(dev.adb, rotation_watcher=dev.rotation_watcher)
+            now1 = time.time()
+            result = screen_proxy.check_frame(screen)
+            now2 = time.time()
+            best_time1 = now2 - now1
+            if result:
+                if best_time1:
+                    if best_time is None:
+                        best_time = best_time1
+                        best_method = name
+                    elif best_time1 < best_time:
+                        best_time = best_time1
+                        best_method = name
+        return best_method
