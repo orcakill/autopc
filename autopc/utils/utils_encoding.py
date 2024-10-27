@@ -13,6 +13,7 @@ class UtilsEncoding:
     def check_file_encoding(file_path: str):
         """
         检查文件的编码格式并输出
+
         :param file_path: 文件路径
         :return: None
         """
@@ -23,6 +24,12 @@ class UtilsEncoding:
 
     @staticmethod
     def check_file_content(file_path: str):
+        """
+        检查文档的格式
+
+        :param file_path:
+        :return:
+        """
         install_requires=[]
         with open(file_path, encoding="UTF-16") as file:
             for line in file:

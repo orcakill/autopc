@@ -11,6 +11,7 @@ class BasicADB:
     def get_adb_resolution(device_address):
         """
         根据设备信息获取Android设备分辨率
+
         :param device_address:
         :return:
         """

@@ -33,6 +33,7 @@ class BasicAirtest:
                    title: str = ''):
         """
         设备连接，支持Android和Windows，默认使用Android连接
+
         :param connect_name: 连接名称
         :param device_type: 设备类型
         :param ip: IP和端口（Android连接）
@@ -55,6 +56,7 @@ class BasicAirtest:
     def snapshot(img_path: str = ''):
         """
         设备截图函数，打印或不打印图片到指定路径
+
         :param img_path: 图片路径及名称（打印）
         :return: ndarray
         """
@@ -68,6 +70,7 @@ class BasicAirtest:
     def exists(template: Template, cvstrategy: [], timeout: float):
         """
         判断模板图片在设备上是否存在，如果存在返回坐标
+
         :param template: 图片类
         :param cvstrategy: 图像识别算法
         :param timeout: 超时时间
@@ -87,6 +90,7 @@ class BasicAirtest:
         :param cvstrategy: 图像识别算法
         :param timeout: 超时时间
         :return: bool
+
         """
         Settings.CVSTRATEGY = cvstrategy
         Settings.FIND_TIMEOUT = timeout
@@ -99,6 +103,7 @@ class BasicAirtest:
     def touch_coordinate(v: [], duration: float = DURATION, wait_time: float = WAIT_TIME):
         """
         点击坐标
+
         :param duration: 按住时间
         :param v: 坐标
         :param wait_time: 等待开始时间
@@ -114,6 +119,7 @@ class BasicAirtest:
     def adb_stop_app(package: str):
         """
         停止APP
+
         :param package: app的包名
         :return: 无
         """
@@ -123,6 +129,7 @@ class BasicAirtest:
     def adb_start_app(package: str):
         """
         启动APP
+
         :param package: app的包名
         :return: 无
         """
@@ -132,6 +139,7 @@ class BasicAirtest:
     def adb_restart_app(package: str):
         """
         重启APP
+
         :param package: app的包名
         :return: 无
         """
@@ -144,6 +152,7 @@ class BasicAirtest:
     def swipe(v1: [], v2: [], duration):
         """
         滑动
+
         :param duration: 间隔
         :param v1: 坐标1
         :param v2: 坐标2
@@ -158,6 +167,7 @@ class BasicAirtest:
     def crop_image(x1, y1, x2, y2):
         """
         局部截图
+
         :param x1: x1
         :param y1: y1
         :param x2: x2
@@ -173,6 +183,7 @@ class BasicAirtest:
     def resolution_ratio():
         """
         获取当前设备分辨率
+
         :return: Tuple
         """
         if G.DEVICE.display_info['orientation'] in [1, 3]:
@@ -187,6 +198,7 @@ class BasicAirtest:
     def cvt_color(screen):
         """
         颜色空间转换 BGR->RGB
+
         :param screen: 图片
         :return: ndarray
         """
@@ -196,6 +208,7 @@ class BasicAirtest:
     def find_all(template: Template, cvstrategy: [], timeout: float):
         """
         在设备屏幕上查找所有出现的目标并返回它们的坐标
+
         :param template: template对象
         :param timeout: 超时时间
         :param cvstrategy:  图像识别算法
@@ -210,6 +223,7 @@ class BasicAirtest:
     def cv_match(template: Template, screen, cvstrategy: []):
         """
         图片中图片查找
+
         :param template: 图片1 template格式
         :param screen: 图片2 ndarray格式
         :param cvstrategy: 图像识别算法
@@ -222,6 +236,7 @@ class BasicAirtest:
     def match_in(template: Template, screen, cvstrategy: [], timeout: float):
         """
         判断图片是否存在并返回坐标
+
         :param screen:   局部截图
         :param template: 图片类
         :param cvstrategy: 图像识别算法
@@ -236,6 +251,7 @@ class BasicAirtest:
     def text(word: str):
         """
         输入文字
+
         :param word: 文字内容
         :return: None
         """
@@ -246,6 +262,7 @@ class BasicAirtest:
     def get_cap_method(serialno):
         """
         获取截图方法
+
         :param serialno: 安卓设备序列号
         :return: str
         """
@@ -262,6 +279,7 @@ class BasicAirtest:
     def check_fast_method(serialno):
         """
         检查最快的、可用的截图方法
+
         :param serialno: 安卓设备序列号
         :return: str
         """

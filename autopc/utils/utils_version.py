@@ -10,6 +10,11 @@ import sys
 
 
 def get_autopc_version():
+    """
+    当前版本设置
+
+    :return:
+    """
     pip_pkg_dir = os.path.join(os.path.dirname(__file__), "..", "..")
     pip_pkg_dir = os.path.abspath(pip_pkg_dir)
 
