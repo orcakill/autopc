@@ -1,7 +1,7 @@
-.. autopc documentation master file, created by
-sphinx-quickstart on Mon Oct 28 00:26:56 2024.
-You can adapt this file completely to your liking, but it should at least
-contain the root `toctree` directive.
+.. airtest documentation master file, created by
+   sphinx-quickstart on Wed May 24 16:03:13 2017.
+   You can adapt this file completely to your liking, but it should at least
+   contain the root `toctree` directive.
 
 autopc documentation
 ====================
@@ -19,8 +19,8 @@ documentation for details.
 
 .. toctree::
    :maxdepth: 1
-   :caption: 核心 API
+   :caption: 基础 API
 
-   source/autopc.basic.bascis_adb
-   source/autopc.basic.bascis_airtest
-   source/autopc.basic.bascis_opencv
+   source/autopc.basic.basic_adb
+   source/autopc.basic.basic_airtest
+   source/autopc.basic.basic_opencv

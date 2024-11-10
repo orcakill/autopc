@@ -1,112 +1,84 @@
 AutoPC
 =======
 
-**Cross-Platform UI Automation Framework for Games and Apps**
+**游戏和应用程序的跨平台 UI 自动化框架**
 
-
-.. raw:: html
-
-    <div style=" overflow: hidden; max-width: 100%; height: auto;">
-        <div align="center" class="embed-responsive embed-responsive-16by9">
-            <video class="embed-responsive-item device-record" autoplay loop controls="none" style="top: 0;bottom: 0;left: 0;width: 100%;height: 100%;border: 0;">
-                <source src="./demo.mp4" type="video/mp4">
-            </video>
-        </div>
-        <br/>
-    </div>
-
-
-Getting Started
+开始
 ---------------
 
-*   **Cross-Platform:** Airtest automates games and apps on almost all platforms.
+*   **跨平台:** Autopc 几乎可以通过PC自动化所有平台上游戏和应用程序。
 
-*   **Write Once, Run Anywhere:** Airtest provides cross-platform APIs, including app installation, simulated input, assertion and so forth. Airtest uses image recognition technology to locate UI elements, so that you can automate games and apps without injecting any code. 
+*   **一次编写，随处运行:** AutoPC 提供了跨平台的 API，包括 App 安装、模拟输入、断言等。AutoPC使用图像识别技术定位UI元素，无需注入任何代码即可实现游戏和应用的自动化。
 
-*   **Fully Scalable:** Airtest cases can be easily run on large device farms, using commandline or python API. HTML reports with detailed info and screen recording allow you to quickly locate failure points. NetEase builds [Airlab](https://airlab.163.com/) on top of Airtest Project.
+*   **完全可扩展:** AutoPC提供诸多API函数，通过编写python调用函数实现更多可扩展的功能。
 
-*   **AirtestIDE:** AirtestIDE is an out of the box GUI tool that helps to create and run cases in a user-friendly way. AirtestIDE supports a complete automation workflow: ``create -> run -> report``.
-
-`Get Started from Airtest Project Homepage`_
-
-
-Supported Platforms
+支持的平台
 ...................
 
 -  Android
 -  iOS
 -  Windows
--  Unity
--  Cocos2dx
--  Egret
--  WeChat
 
-
-Installation
+安装
 ------------
 
-This section describes how to install Airtest python library.
-Download AirtestIDE from our `homepage`_ if you need to use the GUI tool.
-
-
-System Requirements
+系统要求
 ...................
 
--  Operating System:
+-  操作系统:
 
    -  Windows
    -  MacOS X
    -  Linux
 
--  Python2.7 & Python3.3+
+-  Python3.9
 
 
-Installing the python package
+安装 python 软件包
 ..............................
 
-Airtest package can be installed directly from Pypi. Use
-``pip`` to manage installation of all python dependencies and package
+AutoPC 包可以直接从 Pypi 安装。
+使用pip管理所有 python 依赖项和包的安装
 itself.
 
 .. code:: shell
 
-    pip install -U airtest
+    pip install -U autopc
 
 
-You can also install it from Git repository.
+您也可以从 Git 存储库安装它。
 
 .. code:: shell
 
-    git clone https://github.com/AirtestProject/Airtest.git
-    pip install -e airtest
+    git clone https://github.com/orcakill/autopc.git
+    pip install -e autopc
 
 
-Use ``-e`` here to install airtest in develop mode since this repo is in
-rapid development. Then you can upgrade the repo with ``git pull``
-later.
+在这里使用 ''-e'' 以 develop 模式安装 airtest，因为这个仓库在
+快速发展。然后你可以用 ''git pull'' 升级仓库。
 
 
-Documentation
+文档
 -------------
 
-You can find the complete Airtest documentation on `readthedocs`_.
+你可以在 'readthedocs'_ 上找到完整的 Autopc 文档。
 
 
-Example
+例子
 ------------
 
-Airtest provides simple APIs that are platform independent. This section
-describes how to create an automated case which does the following:
+AutoPC提供了独立于平台的简单API。本节
+描述如何创建执行以下操作的自动化案例：
 
-1. connects to local android device with ``adb``
-2. installs the ``apk`` application
-3. runs application and takes the screenshot
-4. performs several user operations (touch, swipe, keyevent)
-5. uninstalls application
+1. 连接到本地 Android 设备 ``adb``
+2. 安装 ''APK'' 应用程序
+3. 运行应用程序并截取屏幕截图
+4. 执行多个用户操作（触摸、滑动、KeyEvent）
+5. 卸载应用程序
 
 .. code:: python
 
-    from airtest.core.api import *
+    from autopc.basic.airtest import *
 
     # connect an android phone with adb
     init_device("Android")
@@ -123,8 +95,7 @@ describes how to create an automated case which does the following:
     uninstall("package_name_of_your_apk")
 
 
-For more detailed info, please refer to `Airtest Python API reference`_ or take a look at `API code`_
-
+更详细的信息请参考`Airtest Python API参考`_ 或者查看`API代码`_
 
 Basic Usage
 ------------
@@ -335,3 +306,6 @@ You can write some common used function in one ``.air`` script and import it fro
 .. _API code: ./airtest/core/api.py
 .. _connect_device: https://airtest.readthedocs.io/en/latest/all_module/airtest.core.api.html#airtest.core.api.connect_device
 .. _AirLab: https://airlab.163.com
+
+.. _Airtest Python API参考: http://airtest.readthedocs.io/en/latest/all_module/airtest.core.api.html
+.. _API代码:./autopc/basic/basic_adb.py

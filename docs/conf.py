@@ -8,7 +8,7 @@
 import os
 import sys
 
-sys.path.insert(0, os.path.abspath('..'))
+sys.path.insert(0, os.path.abspath('../autopc'))
 
 project = 'autopc'
 copyright = '2024, orcakill'
@@ -51,7 +51,9 @@ extensions = ['sphinx.ext.autodoc',
               'sphinx.ext.autosectionlabel',
               'sphinx.ext.napoleon',
               'recommonmark',
-              'sphinx_markdown_tables', ]
+              'sphinx_markdown_tables',
+              'sphinx.ext.intersphinx',
+              'sphinx.ext.mathjax', ]
 
 templates_path = ['_templates']
 exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
