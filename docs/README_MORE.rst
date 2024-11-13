@@ -6,7 +6,7 @@ AutoPC
 开始
 ---------------
 
-*   **跨平台:** Autopc 几乎可以通过PC自动化所有平台上游戏和应用程序。
+*   **跨平台:** AutoPC 几乎可以通过PC自动化多个平台上游戏和应用程序。
 
 *   **一次编写，随处运行:** AutoPC 提供了跨平台的 API，包括 App 安装、模拟输入、断言等。AutoPC使用图像识别技术定位UI元素，无需注入任何代码即可实现游戏和应用的自动化。
 
@@ -16,7 +16,6 @@ AutoPC
 ...................
 
 -  Android
--  iOS
 -  Windows
 
 安装
@@ -28,8 +27,6 @@ AutoPC
 -  操作系统:
 
    -  Windows
-   -  MacOS X
-   -  Linux
 
 -  Python3.9
 
@@ -61,7 +58,7 @@ itself.
 文档
 -------------
 
-你可以在 'readthedocs'_ 上找到完整的 Autopc 文档。
+你可以在 `readthedocs`_ 上找到完整的 AutoPC 文档。
 
 
 例子
@@ -95,51 +92,49 @@ AutoPC提供了独立于平台的简单API。本节
     uninstall("package_name_of_your_apk")
 
 
-更详细的信息请参考`Airtest Python API参考`_ 或者查看`API代码`_
+更详细的信息请参考 `AutoPC Python API参考`_ 。
 
-Basic Usage
+基本用法
 ------------
 
-Airtest aims at providing platform independent API, so that you can write automated cases once and run it on multiple devices and platforms.
+AutoPC旨在提供独立于平台的API，这样你就可以一次编写自动化案例，并在多个设备和平台上运行。
 
-1. Using `connect_device`_ API you can connect to any android/iOS device or windows application. 
+1. 使用 `connect_device`_ API，您可以连接到任何 android 设备或 Windows 应用程序。
 
-2. Then perform `simulated input`_ to automate your game or app. 
-
-3. **DO NOT** forget to `make assertions`_ of the expected result. 
+2. 然后执行 `simulated input`_  以自动化您的游戏或应用程序。
 
 
-Connect Device
+连接设备
 ...............
 
-Using ``connect_device`` API you can connect to any android/iOS device or windows application.
+使用 ''connect_device'' API，您可以连接到任何 android/ 设备或 Windows 应用程序。
 
 .. code:: python
 
     connect_device("platform://host:port/uuid?param=value&param2=value2")
 
-- platform: Android/iOS/Windows...
+- 平台: Android/Windows...
 
-- host: adb host for android, iproxy host for iOS, empty for other platforms
+- host: 适用于 Android 的 adb 主机，对于其他平台为空
 
-- port: adb port for android, iproxy port for iOS, empty for other platforms
+- port: Android 的 adb 端口，其他平台为空
 
-- uuid: uuid for target device, e.g. serialno for Android, handle for Windows, uuid for iOS
+- uuid: 目标设备的 uuid，例如 serialno 用于 Android，handle 用于 Windows
 
-- param: device initialization configuration fields. e.g. cap_method/ori_method/...
+- param: 设备初始化配置字段。例如 cap_method/ori_method/...
 
-- value: device initialization configuration field values.
+- value: 设备初始化配置字段值。
 
 
-see also `connect_device`_.
+另请参阅 `connect_device`_.
 
-Connect android device
+连接 Android 设备
 ***********************
 
-1. Connect your android phone to your PC with usb
-2. Use ``adb devices`` to make sure the state is ``device``
-3. Connect device in Airtest
-4. If you have multiple devices or even remote devices, use more params to specify the device
+1. 使用 USB 将您的 Android 手机连接到您的 PC
+2. 使用 ''adb devices'' 确保状态为 ''device''
+3. 在AutoPC中连接设备
+4. 如果您有多个设备甚至远程设备，请使用更多的参数来指定设备
 
 .. code:: python
 
@@ -152,17 +147,7 @@ Connect android device
     # connect a remote device using custom params
     connect_device("android://adbhost:adbport/1234566?cap_method=javacap&touch_method=adb")
 
-Connect iOS device
-******************
-
-Follow the instruction of `iOS-Tagent`_ to setup the environment.
-
-.. code:: python
-
-    # connect a local ios device
-    connect_device("ios:///")
-
-Connect windows application
+连接 Windows 应用程序
 ****************************
 
 .. code:: python
@@ -174,138 +159,28 @@ Connect windows application
     connect_device("Windows:///?title_re=unity.*")
 
 
-Airtest uses `pywinauto` as Windows backend. For more window searching params, please see `pywinauto documentation`_.
+AutoPC 使用 pywinauto 作为 Windows 后端。更多窗口搜索参数请参见 `pywinauto documentation`_ 文档。
 
 
-Simulate Input
+模拟输入
 ...............
 
-Following APIs are fully supported:
+完全支持以下 API：
 
-- touch
-- swipe
-- text
-- keyevent
-- snapshot
-- wait
+- touch(点击)
+- swipe(滑动)
+- text(文本输入)
+- keyevent(关键事件检查)、
+- snapshot(屏幕截图)
+- wait(等待)
 
-More APIs are available, some of which may be platform specific, please see `API reference`_ for more information.
-
-
-Make Assertion
-...............
-
-Airtest provide some assert functions, including:
-
-- assert_exists
-- assert_not_exists
-- assert_equal
-- assert_not_equal
-
-When assertion fails, it will raise ``AssertsionError``. And you will see all assertions in the html report.
+还有更多 API 可用，其中一些可能是特定于平台的，有关更多信息，请参阅 `API reference`_ 。
 
 
-Running ``.air`` from CLI
------------------------------------
 
-Using AirtestIDE, you can easily create and author automated cases as ``.air`` directories.
-Airtest CLI provides the possibility to execute cases on different host machine and target device platforms without using AirtestIDE itself.
-
-Connections to devices are specified by command line arguments, i.e. the code is platform independent and one automated case can be used for Android, iOS or Windows apps as well. 
-
-Following examples demonstrate the basic usage of airtest framework running from CLI. For a deeper understanding, try running provided automated cases: ``airtest/playground/test_blackjack.air``
-
-
-run automated case
-..............
-.. code:: shell
-
-    # run automated cases and scenarios on various devices
-    > airtest run "path to your .air dir" --device Android:///
-    > airtest run "path to your .air dir" --device Android://adbhost:adbport/serialno
-    > airtest run "path to your .air dir" --device Windows:///?title_re=Unity.*
-    > airtest run "path to your .air dir" --device iOS:///
-    ...
-    # show help
-    > airtest run -h
-    usage: airtest run [-h] [--device [DEVICE]] [--log [LOG]]
-                       [--recording [RECORDING]]
-                       script
-
-    positional arguments:
-      script                air path
-
-    optional arguments:
-      -h, --help            show this help message and exit
-      --device [DEVICE]     connect dev by uri string, e.g. Android:///
-      --log [LOG]           set log dir, default to be script dir
-      --recording [RECORDING]
-                          record screen when running
-
-
-generate html report
-.....................
-.. code:: shell
-
-    > airtest report "path to your .air dir"
-    log.html
-    > airtest report -h
-    usage: airtest report [-h] [--outfile OUTFILE] [--static_root STATIC_ROOT]
-                          [--log_root LOG_ROOT] [--record RECORD [RECORD ...]]
-                          [--export EXPORT] [--lang LANG]
-                          script
-
-    positional arguments:
-      script                script filepath
-
-    optional arguments:
-      -h, --help            show this help message and exit
-      --outfile OUTFILE     output html filepath, default to be log.html
-      --static_root STATIC_ROOT
-                            static files root dir
-      --log_root LOG_ROOT   log & screen data root dir, logfile should be
-                            log_root/log.txt
-      --record RECORD [RECORD ...]
-                            custom screen record file path
-      --export EXPORT       export a portable report dir containing all resources
-      --lang LANG           report language
-
-
-get case info
-...................
-.. code:: shell
-
-    # print case info in json if defined, including: author, title, desc
-    > python -m airtest info "path to your .air dir"
-    {"author": ..., "title": ..., "desc": ...}
-
-
-Import from other ``.air``
---------------------------
-You can write some common used function in one ``.air`` script and import it from other scripts. Airtest provide ``using`` API to manage the context change including ``sys.path`` and ``Template`` search path.
-
-.. code:: python
-
-    from airtest.core.api import using
-    using("common.air")
-
-    from common import common_function
-
-    common_function()
-
-
-.. _Get Started from Airtest Project Homepage: http://airtest.netease.com/
-.. _homepage: http://airtest.netease.com/
-.. _readthedocs: http://airtest.readthedocs.io/
-.. _pywinauto documentation: https://pywinauto.readthedocs.io/en/latest/code/pywinauto.findwindows.html#pywinauto.findwindows.find_elements
+.. _readthedocs: http://airtest.readthedocs.io
 .. _simulated input: http://airtest.readthedocs.io/en/latest/README_MORE.html#simulate-input
-.. _iOS-Tagent: https://github.com/AirtestProject/iOS-Tagent
-.. _make assertions: http://airtest.readthedocs.io/en/latest/README_MORE.html#make-assertion
-.. _Airtest Python API reference: http://airtest.readthedocs.io/en/latest/all_module/airtest.core.api.html
+.. _AutoPC Python API参考:  http://airtest.readthedocs.io/en/latest/all_module/airtest.core.api.html
 .. _API reference: http://airtest.readthedocs.io/en/latest/index.html#main-api
-.. _API code: ./airtest/core/api.py
 .. _connect_device: https://airtest.readthedocs.io/en/latest/all_module/airtest.core.api.html#airtest.core.api.connect_device
-.. _AirLab: https://airlab.163.com
-
-.. _Airtest Python API参考: http://airtest.readthedocs.io/en/latest/all_module/airtest.core.api.html
-.. _API代码:./autopc/basic/basic_adb.py
+.. _pywinauto documentation: https://pywinauto.readthedocs.io/en/latest/code/pywinauto.findwindows.html#pywinauto.findwindows.find_elements
