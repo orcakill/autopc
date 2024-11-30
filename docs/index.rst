@@ -1,15 +1,5 @@
-.. airtest documentation master file, created by
-   sphinx-quickstart on Wed May 24 16:03:13 2017.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
-
-autopc documentation
+AutoPC documentation
 ====================
-
-Add your content using ``reStructuredText`` syntax. See the
-`reStructuredText <https://www.sphinx-doc.org/en/master/usage/restructuredtext/index.html>`_
-documentation for details.
-
 
 .. toctree::
    :maxdepth: 4
@@ -24,3 +14,16 @@ documentation for details.
    source/autopc.basic.basic_adb
    source/autopc.basic.basic_airtest
    source/autopc.basic.basic_opencv
+
+.. toctree::
+   :maxdepth: 1
+   :caption: 工具 API
+
+   source/autopc.utils.utils_encoding
+   source/autopc.utils.utils_version
+
+.. toctree::
+   :maxdepth: 1
+   :caption: 模块内容
+
+   source/modules
