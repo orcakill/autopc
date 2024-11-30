@@ -178,9 +178,9 @@ AutoPC 使用 pywinauto 作为 Windows 后端。更多窗口搜索参数请参�
 
 
 
-.. _readthedocs: http://airtest.readthedocs.io
-.. _simulated input: http://airtest.readthedocs.io/en/latest/README_MORE.html#simulate-input
-.. _AutoPC Python API参考:  http://airtest.readthedocs.io/en/latest/all_module/airtest.core.api.html
-.. _API reference: http://airtest.readthedocs.io/en/latest/index.html#main-api
-.. _connect_device: https://airtest.readthedocs.io/en/latest/all_module/airtest.core.api.html#airtest.core.api.connect_device
-.. _pywinauto documentation: https://pywinauto.readthedocs.io/en/latest/code/pywinauto.findwindows.html#pywinauto.findwindows.find_elements
+.. _readthedocs: http://https://autopc.readthedocs.io/zh-cn/latest/
+.. _simulated input: https://autopc.readthedocs.io/zh-cn/latest//README_MORE.html#simulate-input
+.. _AutoPC Python API参考:  https://autopc.readthedocs.io/zh-cn/latest/all_module/airtest.core.api.html
+.. _API reference: https://autopc.readthedocs.io/zh-cn/latest//index.html#main-api
+.. _connect_device: https://autopc.readthedocs.io/zh-cn/latest/source/autopc.basic.basic_airtest.html#autopc.basic.basic_airtest.auto_setup
+.. _pywinauto documentation: https://autopc.readthedocs.io/zh-cn/latest//code/pywinauto.findwindows.html#pywinauto.findwindows.find_elements

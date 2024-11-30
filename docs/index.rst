@@ -1,4 +1,4 @@
-AutoPC documentation
+AutoPC 文档
 ====================
 
 .. toctree::
