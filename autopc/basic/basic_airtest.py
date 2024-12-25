@@ -152,7 +152,6 @@ class BasicAirtest:
     def swipe(v1: [], v2: [], duration):
         """
         滑动
-
         :param duration: 间隔
         :param v1: 坐标1
         :param v2: 坐标2
