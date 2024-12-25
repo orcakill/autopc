@@ -28,19 +28,18 @@ class BasicOpenCv:
         imageio.imsave(img_path, screen)
 
     @staticmethod
-    def draw_point(screen, x: int, y: int, img_path: str):
+    def draw_point(screen, pos, img_path: str):
         """
         画图，根据指定范围的坐标在原图上画框，并打印到指定地址
 
         :param screen: 图像 ndarray
-        :param x: 横坐标
-        :param y: 纵坐标
+        :param pos: (横坐标,纵坐标）
         :param img_path: 图片路径
         :return: None
         """
-
         rgb_image = cv2.cvtColor(screen, cv2.COLOR_RGB2BGR)
-        cv2.circle(rgb_image, (x, y), 5, (255, 0, 0), -1)
+        print(pos)
+        cv2.circle(rgb_image, pos, 5, (255, 0, 0), -1)
         # 保存图片到本地磁盘
         imageio.imsave(img_path, rgb_image)
 
