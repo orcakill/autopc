@@ -6,6 +6,8 @@ from unittest import TestCase
 
 from autopc.basic.basic_adb import BasicADB
 
+connect_name = '127.0.0.1:62001'
+
 
 class TestBasicADB(TestCase):
     def test_get_adb_resolution(self):
@@ -14,4 +16,4 @@ class TestBasicADB(TestCase):
 
         :return:
         """
-        return  BasicADB.get_adb_resolution("A2CDUN4312H00817")
+        return BasicADB.get_adb_resolution(connect_name)

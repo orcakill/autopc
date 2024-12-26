@@ -9,7 +9,9 @@ from airtest.core.cv import Template
 from autopc.basic.basic_airtest import BasicAirtest
 from autopc.basic.basic_opencv import BasicOpenCv
 
-connect_name = "A2CDUN4312H00817"
+# connect_name = "A2CDUN4312H00817"
+
+connect_name = '127.0.0.1:62001'
 
 
 class TestBasicAirtest(TestCase):
@@ -17,16 +19,12 @@ class TestBasicAirtest(TestCase):
         BasicAirtest.auto_setup(connect_name)
         BasicAirtest.snapshot("../resources/print/snapshot.png")
 
-
     def test_loop_find(self):
-        a=1
-        b=2
         BasicAirtest.auto_setup(connect_name)
-        template = Template("../resources/sources/loop_find.png")
+        template = Template("../resources/sources/loop_nox.png")
         screen = BasicAirtest.snapshot()
         pos = BasicAirtest.loop_find(template=template, random_area=0.5)
         BasicOpenCv.draw_point(screen, pos, "../resources/print/loop_find_result.png")
-
 
     def test_exists(self):
         self.fail()

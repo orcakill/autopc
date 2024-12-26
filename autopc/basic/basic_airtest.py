@@ -105,12 +105,12 @@ class BasicAirtest:
                     # 处理随机区域
                     if random_area < 1:
                         x1, y1 = x1 + random_area * width / 2, y1 + random_area * height / 2
-                        x2, y2 = x2 - random_area * width / 2, y2 - random_area * height / 2
+                        x2, y2 = x2 + random_area * width / 2, y2 - random_area * height / 2
                         x3, y3 = x3 - random_area * width / 2, y3 - random_area * height / 2
                         x4, y4 = x4 - random_area * width / 2, y4 + random_area * height / 2
-                    random_x = random.uniform(min(x1, x2, x3, x4), max(x1, x2, x3, x4))
-                    random_y = random.uniform(min(y1, y2, y3, y4), max(y1, y2, y3, y4))
-                    match_pos = (random_x,random_y)
+                    random_x = int(random.uniform(min(x1, x2, x3, x4), max(x1, x2, x3, x4)))
+                    random_y = int(random.uniform(min(y1, y2, y3, y4), max(y1, y2, y3, y4)))
+                    match_pos = (random_x, random_y)
                 else:
                     # 其他情况，取中心点
                     match_pos = template.match_in(screen)
@@ -129,25 +129,30 @@ class BasicAirtest:
                 time.sleep(interval)
 
     @staticmethod
-    def exists(template: Template, cvstrategy: [], timeout: float):
+    def exists(template: Template, cvstrategy: [], timeout: float, random_area=0):
         """
         判断模板图片在设备上是否存在，如果存在返回坐标
 
         :param template: 图片类
         :param cvstrategy: 图像识别算法
         :param timeout: 超时时间
+        :param random_area: 随机区域，默认0，取中心点，大于零小于等于1则区域内随机
         :return: bool
         """
         Settings.CVSTRATEGY = cvstrategy
         Settings.FIND_TIMEOUT_TMP = timeout
-        return exists(template)
+        try:
+            pos = BasicAirtest.loop_find(template, timeout=ST.FIND_TIMEOUT_TMP, random_area=random_area)
+        except TargetNotFoundError:
+            return False
+        else:
+            return pos
 
     @staticmethod
-    def touch(template: Template, cvstrategy: [], timeout: float, times: int, duration: float):
+    def touch(template: Template, cvstrategy: [], timeout: float, times: int = 1, **kwargs):
         """
         判断模板图片在设备上是否存在，如果存在点击
         :param times: 点击次数
-        :param duration: 按住时间
         :param template: 图片类
         :param cvstrategy: 图像识别算法
         :param timeout: 超时时间
@@ -156,10 +161,18 @@ class BasicAirtest:
         """
         Settings.CVSTRATEGY = cvstrategy
         Settings.FIND_TIMEOUT = timeout
-        if touch(template, times=times, duration=duration):
-            return True
+        if isinstance(template, Template):
+            pos = loop_find(template, timeout=ST.FIND_TIMEOUT)
         else:
-            return False
+            try_log_screen()
+            pos = template
+        for _ in range(times):
+            # If pos is a relative coordinate, return the converted click coordinates.
+            # iOS may all use vertical screen coordinates, so coordinates will not be returned.
+            pos = G.DEVICE.touch(pos, **kwargs) or pos
+            time.sleep(0.05)
+        delay_after_operation()
+        return pos
 
     @staticmethod
     def touch_coordinate(v: [], duration: float = DURATION, wait_time: float = WAIT_TIME):

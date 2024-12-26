@@ -21,4 +21,5 @@ class BasicADB:
         resolution_tuple = output.decode().strip().split(' ')[-1]
         resolution_tuple = tuple(map(int, resolution_tuple.split('x')))
         if resolution_tuple:
+            print(resolution_tuple)
             return resolution_tuple
