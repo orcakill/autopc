@@ -2,8 +2,14 @@
 # @Author: orcakill
 # @File: temp_test.py
 # @Description: 测试
+import warnings
+from loguru import logger
+
+def loguru_showwarning(message, category):
+    logger.warning(f"{category.__name__}: {message}")
+
+
+
 if __name__ == '__main__':
-    a='1'
-    b='2'
-    print(a)
-    c='3'
+    warnings.showwarning = loguru_showwarning
+    warnings.warn("Currently using ADB screenshots, the efficiency may be very low.")

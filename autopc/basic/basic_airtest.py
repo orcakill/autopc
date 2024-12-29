@@ -42,6 +42,7 @@ class BasicAirtest:
         :param title: 窗口标题（windows连接）
         :return: None
         """
+        # 根据设备类型选择连接方式
         devices = ''
         if device_type == 'Android':
             devices = 'Android://' + ip + '/' + connect_name
@@ -129,7 +130,8 @@ class BasicAirtest:
                 time.sleep(interval)
 
     @staticmethod
-    def exists(template: Template, cvstrategy: [], timeout: float, random_area=0):
+    def exists(template: Template, cvstrategy: [] = Settings.CVSTRATEGY, timeout: float = Settings.FIND_TIMEOUT_TMP,
+               random_area=0):
         """
         判断模板图片在设备上是否存在，如果存在返回坐标
 
