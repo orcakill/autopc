@@ -151,7 +151,8 @@ class BasicAirtest:
             return pos
 
     @staticmethod
-    def touch(template: Template, cvstrategy: [], timeout: float, times: int = 1, **kwargs):
+    def touch(template: Template, cvstrategy: [] = Settings.CVSTRATEGY, timeout: float = Settings.FIND_TIMEOUT_TMP,
+              times: int = 1, **kwargs):
         """
         判断模板图片在设备上是否存在，如果存在点击
         :param times: 点击次数

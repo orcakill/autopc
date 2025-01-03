@@ -12,10 +12,10 @@ from autopc.basic.basic_airtest import BasicAirtest
 from autopc.basic.basic_opencv import BasicOpenCv
 from autopc.utils.utils_logger import my_logger as logger, loguru_showwarning
 
-connect_name = "A2CDUN4312H00817"
+# connect_name = "A2CDUN4312H00817"
 
 
-# connect_name = '127.0.0.1:62001'
+connect_name = '127.0.0.1:62001'
 
 
 class TestBasicAirtest(TestCase):
@@ -41,14 +41,22 @@ class TestBasicAirtest(TestCase):
     def test_exists(self):
         BasicAirtest.auto_setup(connect_name)
         template = Template("../resources/sources/loop_nox.png")
+        screen = BasicAirtest.snapshot()
         pos = BasicAirtest.exists(template=template)
+        BasicOpenCv.draw_point(screen, pos, "../resources/print/exists_result.png")
         logger.info("坐标：{}", pos)
 
     def test_touch(self):
-        self.fail()
+        BasicAirtest.auto_setup(connect_name)
+        template = Template("../resources/sources/loop_nox.png")
+        BasicAirtest.touch(template=template)
 
     def test_touch_coordinate(self):
-        self.fail()
+        BasicAirtest.auto_setup(connect_name)
+        template = Template("../resources/sources/loop_nox.png")
+        pos = BasicAirtest.exists(template=template)
+        logger.info("坐标：{}", pos)
+        BasicAirtest.touch_coordinate(pos)
 
     def test_adb_stop_app(self):
         self.fail()
