@@ -59,16 +59,22 @@ class TestBasicAirtest(TestCase):
         BasicAirtest.touch_coordinate(pos)
 
     def test_adb_stop_app(self):
-        self.fail()
+        BasicAirtest.adb_stop_app("com.netease.onmyoji")
 
     def test_adb_start_app(self):
-        self.fail()
+        BasicAirtest.adb_start_app("com.netease.onmyoji")
 
     def test_adb_restart_app(self):
-        self.fail()
+        BasicAirtest.adb_restart_app("com.netease.onmyoji")
 
     def test_swipe(self):
-        self.fail()
+        BasicAirtest.auto_setup(connect_name)
+        template = Template("../resources/sources/loop_nox.png")
+        pos = BasicAirtest.exists(template=template)
+        pos1=(pos[0]+200,pos[1])
+        logger.info("坐标：{}", pos)
+        logger.info("坐标：{}", pos1)
+        BasicAirtest.touch_coordinate(pos)
 
     def test_crop_image(self):
         self.fail()

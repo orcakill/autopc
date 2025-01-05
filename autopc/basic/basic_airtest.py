@@ -156,42 +156,37 @@ class BasicAirtest:
         """
         判断模板图片在设备上是否存在，如果存在点击
         :param times: 点击次数
-        :param template: 图片类
         :param cvstrategy: 图像识别算法
+        :param template: 图片类
         :param timeout: 超时时间
         :return: bool
 
         """
         Settings.CVSTRATEGY = cvstrategy
         Settings.FIND_TIMEOUT = timeout
-        if isinstance(template, Template):
-            pos = loop_find(template, timeout=ST.FIND_TIMEOUT)
-        else:
-            try_log_screen()
-            pos = template
+        pos = loop_find(template, timeout=ST.FIND_TIMEOUT)
         for _ in range(times):
-            # If pos is a relative coordinate, return the converted click coordinates.
-            # iOS may all use vertical screen coordinates, so coordinates will not be returned.
             pos = G.DEVICE.touch(pos, **kwargs) or pos
             time.sleep(0.05)
         delay_after_operation()
         return pos
 
     @staticmethod
-    def touch_coordinate(v: [], duration: float = DURATION, wait_time: float = WAIT_TIME):
+    def touch_coordinate(pos: (), duration: float = DURATION, wait_time: float = WAIT_TIME, times: int = 1, **kwargs):
         """
         点击坐标
-
+        :param pos: 坐标信息（x,y）
+        :param times: 点击次数
         :param duration: 按住时间
         :param v: 坐标
         :param wait_time: 等待开始时间
         :return: bool
         """
-        time.sleep(wait_time)
-        if touch(v, duration=duration):
-            return True
-        else:
-            return False
+        for _ in range(times):
+            pos = G.DEVICE.touch(pos, **kwargs) or pos
+            time.sleep(0.05)
+        delay_after_operation()
+        return pos
 
     @staticmethod
     def adb_stop_app(package: str):
@@ -225,6 +220,7 @@ class BasicAirtest:
         time.sleep(2)
         BasicAirtest.adb_start_app(package)
         time.sleep(2)
+
 
     @staticmethod
     def swipe(v1: [], v2: [], duration):
