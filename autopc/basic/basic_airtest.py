@@ -278,7 +278,7 @@ class BasicAirtest:
         return cv2_2_pil(screen)
 
     @staticmethod
-    def find_all(template: Template, cvstrategy: [], timeout: float):
+    def find_all(template: Template, cvstrategy: []=Settings.CVSTRATEGY, timeout: float=Settings.FIND_TIMEOUT):
         """
         在设备屏幕上查找所有出现的目标并返回它们的坐标
 
@@ -295,7 +295,7 @@ class BasicAirtest:
     @staticmethod
     def cv_match(template: Template, screen, cvstrategy: []):
         """
-        图片中图片查找
+        图片中查找图片信息
 
         :param template: 图片1 template格式
         :param screen: 图片2 ndarray格式
@@ -308,7 +308,7 @@ class BasicAirtest:
     @staticmethod
     def match_in(template: Template, screen, cvstrategy: [], timeout: float):
         """
-        判断图片是否存在并返回坐标
+        判断图片是否存在图片并返回坐标（x,y）
 
         :param screen:   局部截图
         :param template: 图片类

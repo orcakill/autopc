@@ -77,19 +77,30 @@ class TestBasicAirtest(TestCase):
         BasicAirtest.touch_coordinate(pos)
 
     def test_crop_image(self):
-        self.fail()
+        BasicAirtest.auto_setup(connect_name)
+        BasicAirtest.crop_image(100,100,200,200)
 
     def test_resolution_ratio(self):
-        self.fail()
+        BasicAirtest.auto_setup(connect_name)
+        resolution_ratio=BasicAirtest.resolution_ratio()
+        logger.debug("设备分辨率：{}",resolution_ratio)
 
     def test_cvt_color(self):
-        self.fail()
+        BasicAirtest.auto_setup(connect_name)
+        screen=BasicAirtest.snapshot()
+        BasicAirtest.cvt_color(screen)
 
     def test_find_all(self):
-        self.fail()
+        BasicAirtest.auto_setup(connect_name)
+        template = Template("../resources/sources/loop_nox.png")
+        pos = BasicAirtest.find_all(template=template)
+        logger.info("坐标：{}", pos)
 
     def test_cv_match(self):
-        self.fail()
+        BasicAirtest.auto_setup(connect_name)
+        template = Template("../resources/sources/loop_nox_all.png")
+        pos = BasicAirtest.find_all(template=template)
+        logger.info("坐标：{}", pos)
 
     def test_match_in(self):
         self.fail()
