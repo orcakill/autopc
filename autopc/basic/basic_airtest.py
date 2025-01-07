@@ -221,7 +221,6 @@ class BasicAirtest:
         BasicAirtest.adb_start_app(package)
         time.sleep(2)
 
-
     @staticmethod
     def swipe(v1: [], v2: [], duration):
         """
@@ -278,7 +277,7 @@ class BasicAirtest:
         return cv2_2_pil(screen)
 
     @staticmethod
-    def find_all(template: Template, cvstrategy: []=Settings.CVSTRATEGY, timeout: float=Settings.FIND_TIMEOUT):
+    def find_all(template: Template, cvstrategy: [] = Settings.CVSTRATEGY, timeout: float = Settings.FIND_TIMEOUT):
         """
         在设备屏幕上查找所有出现的目标并返回它们的坐标
 
@@ -293,7 +292,7 @@ class BasicAirtest:
         return result
 
     @staticmethod
-    def cv_match(template: Template, screen, cvstrategy: []):
+    def cv_match(template: Template, screen, cvstrategy: [] = Settings.CVSTRATEGY):
         """
         图片中查找图片信息
 
@@ -306,7 +305,8 @@ class BasicAirtest:
         return template._cv_match(screen)
 
     @staticmethod
-    def match_in(template: Template, screen, cvstrategy: [], timeout: float):
+    def match_in(template: Template, screen, cvstrategy: [] = Settings.CVSTRATEGY,
+                 timeout: float = Settings.FIND_TIMEOUT_TMP):
         """
         判断图片是否存在图片并返回坐标（x,y）
 

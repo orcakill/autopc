@@ -10,11 +10,9 @@ from airtest.core.cv import Template
 
 from autopc.basic.basic_airtest import BasicAirtest
 from autopc.basic.basic_opencv import BasicOpenCv
-from autopc.utils.utils_logger import my_logger as logger, loguru_showwarning
+from autopc.utils.utils_logger import my_logger as logger
 
 # connect_name = "A2CDUN4312H00817"
-
-
 connect_name = '127.0.0.1:62001'
 
 
@@ -71,23 +69,23 @@ class TestBasicAirtest(TestCase):
         BasicAirtest.auto_setup(connect_name)
         template = Template("../resources/sources/loop_nox.png")
         pos = BasicAirtest.exists(template=template)
-        pos1=(pos[0]+200,pos[1])
+        pos1 = (pos[0] + 200, pos[1])
         logger.info("坐标：{}", pos)
         logger.info("坐标：{}", pos1)
         BasicAirtest.touch_coordinate(pos)
 
     def test_crop_image(self):
         BasicAirtest.auto_setup(connect_name)
-        BasicAirtest.crop_image(100,100,200,200)
+        BasicAirtest.crop_image(100, 100, 200, 200)
 
     def test_resolution_ratio(self):
         BasicAirtest.auto_setup(connect_name)
-        resolution_ratio=BasicAirtest.resolution_ratio()
-        logger.debug("设备分辨率：{}",resolution_ratio)
+        resolution_ratio = BasicAirtest.resolution_ratio()
+        logger.debug("设备分辨率：{}", resolution_ratio)
 
     def test_cvt_color(self):
         BasicAirtest.auto_setup(connect_name)
-        screen=BasicAirtest.snapshot()
+        screen = BasicAirtest.snapshot()
         BasicAirtest.cvt_color(screen)
 
     def test_find_all(self):
@@ -99,17 +97,27 @@ class TestBasicAirtest(TestCase):
     def test_cv_match(self):
         BasicAirtest.auto_setup(connect_name)
         template = Template("../resources/sources/loop_nox_all.png")
-        pos = BasicAirtest.find_all(template=template)
-        logger.info("坐标：{}", pos)
+        screen = BasicAirtest.snapshot()
+        result = BasicAirtest.cv_match(template=template, screen=screen)
+        logger.info("识别结果：{}", result)
 
     def test_match_in(self):
-        self.fail()
+        BasicAirtest.auto_setup(connect_name)
+        template = Template("../resources/sources/loop_nox_all.png")
+        screen = BasicAirtest.snapshot()
+        pos = BasicAirtest.match_in(template=template, screen=screen)
+        logger.info("识别结果：{}", pos)
 
     def test_text(self):
-        self.fail()
+        BasicAirtest.auto_setup(connect_name)
+        BasicAirtest.text("123")
 
     def test_get_cap_method(self):
-        self.fail()
+        BasicAirtest.auto_setup(connect_name)
+        result = BasicAirtest.get_cap_method(connect_name)
+        logger.info("识别结果：{}", result)
 
     def test_check_fast_method(self):
-        self.fail()
+        BasicAirtest.auto_setup(connect_name)
+        result = BasicAirtest.check_fast_method(connect_name)
+        logger.info("识别结果：{}", result)
