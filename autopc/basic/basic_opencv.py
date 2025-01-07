@@ -46,7 +46,7 @@ class BasicOpenCv:
     @staticmethod
     def get_color_format(screen):
         """
-        判断数组的颜色空间格式
+        判断数组的颜色空间格式 
 
         :param screen: 图像数组 ndarray
         :return: str
