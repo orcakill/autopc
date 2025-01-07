@@ -172,14 +172,11 @@ class BasicAirtest:
         return pos
 
     @staticmethod
-    def touch_coordinate(pos: (), duration: float = DURATION, wait_time: float = WAIT_TIME, times: int = 1, **kwargs):
+    def touch_coordinate(pos: (), times: int = 1, **kwargs):
         """
         点击坐标
         :param pos: 坐标信息（x,y）
         :param times: 点击次数
-        :param duration: 按住时间
-        :param v: 坐标
-        :param wait_time: 等待开始时间
         :return: bool
         """
         for _ in range(times):
@@ -222,7 +219,7 @@ class BasicAirtest:
         time.sleep(2)
 
     @staticmethod
-    def swipe(v1: [], v2: [], duration):
+    def swipe(v1: [], v2: [], duration:float=DURATION):
         """
         滑动
         :param duration: 间隔

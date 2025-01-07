@@ -32,30 +32,24 @@ adb devices
 
 AutoPC希望提供平台无关的API，让你的自动化代码可以运行Windows上，操作不同平台的应用。
 
-1. 使用 [connect_device](http://airtest.readthedocs.io/zh_CN/latest/README_MORE.html#connect-device) 来连接任意Android设备或者Windows窗口。
+1. 使用 [connect_device](https://autopc.readthedocs.io/zh-cn/latest/source/autopc.basic.basic_airtest.html#auto_step) 来连接任意Android设备或者Windows窗口。
 2. 使用 [模拟操作](http://airtest.readthedocs.io/zh_CN/latest/README_MORE.html#simulate-input) 的API来自动化你的游戏或者App。
 
 
 ```Python
-from autopc.basic.basic_adb import *
 from autopc.basic.basic_airtest import *
 
 # 通过ADB连接本地Android设备
-init_device("Android")
-# 或者使用connect_device函数
-# connect_device("Android:///")
-connect_device("Android:///")
-install("path/to/your/apk")
-start_app("package_name_of_your_apk")
-touch(Template("image_of_a_button.png"))
-swipe(Template("slide_start.png"), Template("slide_end.png"))
-assert_exists(Template("success.png"))
-keyevent("BACK")
-home()
-uninstall("package_name_of_your_apk")
+BasicAirtest.auto_setup("Android")
+# 启动APP
+BasicAirtest.adb_start_app("package_name_of_your_apk")
+# 点击屏幕的图片
+BasicAirtest.touch(Template("image_of_a_button.png"))
+# 从图片1滑动到图片2
+BasicAirtest.swipe(Template("slide_start.png"), Template("slide_end.png"))
 ```
 
-更详细的说明请看 [Airtest Python API 文档](http://airtest.readthedocs.io/zh_CN/latest/all_module/airtest.core.api.html) 或者直接看 [API代码](./airtest/core/api.py) 。
+更详细的说明请看 [AutoPC Python API 文档](https://autopc.readthedocs.io/zh-cn/latest/source/autopc.basic.basic_airtest.html) 或者直接看 [API代码](../autopc/autopc/basic/basic_airtest.py) 。
 
 
 
