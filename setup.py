@@ -6,7 +6,7 @@ from setuptools import setup, find_packages
 
 def read(rel_path):
     here = os.path.abspath(os.path.dirname(__file__))
-    with codecs.open(os.path.join(here, str(rel_path)), 'r',encoding="utf-8") as fp:
+    with codecs.open(os.path.join(here, str(rel_path)), 'r', encoding="utf-8") as fp:
         return fp.read()
 
 
@@ -29,19 +29,10 @@ def is_docker():
 
 def parse_requirements(filename):
     """ load requirements from a pip requirements file. (replacing from pip.req import parse_requirements)"""
-    linter = (line.strip() for line in open(filename,encoding='utf-16'))
+    linter = (line.strip() for line in open(filename))
     reqs = [line for line in linter if line and not line.startswith("#")]
     if sys.platform == "win32":
         reqs.append('pywin32')
-    # if py<=3.6 add dataclasses
-    if sys.version_info.major == 3 and sys.version_info.minor <= 6:
-        reqs.append("dataclasses")
-    if sys.version_info.major == 3 and sys.version_info.minor <= 7:
-        reqs.remove("facebook-wda>=1.3.3")
-        reqs.append("facebook-wda<1.4.8")
-    if is_docker():
-        reqs.remove("opencv-contrib-python>=4.4.0.46, <=4.6.0.66")
-        reqs.append("opencv-contrib-python-headless==4.5.5.64")
     return reqs
 
 
@@ -51,13 +42,24 @@ setup(
     author='orcakill',
     author_email='orcakill@dingtalk.com',
     description='An image recognition framework running on a computer',
-    long_description='UI Test Automation Framework for Games and Apps on Android/iOS/Windows, present by NetEase Games',
+    long_description=open('README.md', encoding='utf-8').read(),
+    long_description_content_type='text/markdown',
     url='https://github.com/orcakill/autopc',
     license='Apache License 2.0',
     keywords=['automation', 'opencv-python', 'ocr'],
-    packages=find_packages(exclude=['test', 'dist']),
+    packages=find_packages(exclude=['test', 'test.*', 'dist', 'dist.*']),
     include_package_data=True,
     install_requires=parse_requirements('requirements.txt'),
+    extras_require={
+        'test': [
+            'nose',
+        ],
+        'docs': [
+            'sphinx',
+            'recommonmark',
+            'sphinx_rtd_theme',
+            'mock',
+        ]},
     classifiers=[
         'Programming Language :: Python :: 3.9',
     ],

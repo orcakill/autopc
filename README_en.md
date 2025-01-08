@@ -1,6 +1,6 @@
 # AutoPC
 
-**Cross-Platform UI Automation Framework for Games and Apps**（[中文版点这里](./README.md)）
+**Cross-Platform UI Automation Framework for Games and Apps**（[中文版点这里](https://github.com/orcakill/autopc/blob/master/README.md)）
 
 ## Quick start
 
@@ -25,7 +25,7 @@ adb devices
 
 ## documentation
 
-Please refer to the complete AutoPC documentation [readthedocs](http://https://autopc.readthedocs.io/zh-cn/latest/)。
+Please refer to the complete AutoPC documentation [readthedocs](http://autopc.readthedocs.io/zh-cn/latest/)。
 
 ## example
 

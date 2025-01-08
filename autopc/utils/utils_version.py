@@ -3,7 +3,7 @@
 # @Author: orcakill
 # @File: version.py.py
 # @Description: 版本号
-__version__ = "1.0.1.6"
+__version__ = "1.0.1"
 
 import os
 import sys

@@ -1,6 +1,6 @@
 # AutoPC
 
-**基于Windows的跨平台的UI自动化框架，适用于游戏和App**（[Click here for the English version](./README_en.md)）
+**基于Windows的跨平台的UI自动化框架，适用于游戏和App**（[Click here for the English version](https://github.com/orcakill/autopc/blob/master/README_en.md)）
 
 ## 快速开始
 
@@ -25,7 +25,7 @@ adb devices
 
 ## 文档
 
-完整的AutoPC文档请看 [readthedocs](http://https://autopc.readthedocs.io/zh-cn/latest/)。
+完整的AutoPC文档请看 [readthedocs](http://autopc.readthedocs.io/zh-cn/latest/)。
 
 ## 例子
 
