@@ -374,3 +374,33 @@ class BasicAirtest:
                         best_time = best_time1
                         best_method = name
         return best_method
+
+    @staticmethod
+    def check_method(serialno):
+        """
+        检查当前设备使用的截图方法
+
+        :param serialno: 安卓设备序列号
+        :return: str
+        """
+        dev = Android(serialno=serialno)
+        screen_proxy = ScreenProxy.auto_setup(dev.adb, rotation_watcher=dev.rotation_watcher)
+        all_methods = screen_proxy.SCREEN_METHODS
+        # 从self.SCREEN_METHODS中，逆序取出可用的方法
+        best_method = None
+        best_time = None
+        for name, screen_class in reversed(all_methods.items()):
+            screen = screen_class(dev.adb, rotation_watcher=dev.rotation_watcher)
+            now1 = time.time()
+            result = screen_proxy.check_frame(screen)
+            now2 = time.time()
+            best_time1 = now2 - now1
+            if result:
+                if best_time1:
+                    if best_time is None:
+                        best_time = best_time1
+                        best_method = name
+                    elif best_time1 < best_time:
+                        best_time = best_time1
+                        best_method = name
+        return [best_method, best_time]
